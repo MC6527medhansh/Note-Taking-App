@@ -1,0 +1,37 @@
+<%- include("header") -%>
+
+<div class="box" id="heading">
+  <h1><%= listTitle %></h1>
+</div>
+
+<div class="box">
+  <!-- 5.2 -->
+  <% newListItems.forEach(function(item) { %>
+  <!-- 7. When you click the checkbox, it should delete the particular task -->
+  <form action="/delete" method="post">
+    <div class="item">
+      <!-- 7.2 The onChange field has been added so that whenever the checkbox is clicked, you're redirected to the delete page -->
+      <input
+        type="checkbox"
+        name="checkbox"
+        value="<%= item._id // 7.2.1 To log which item was checked off%>"
+        onChange="this.form.submit()"
+      />
+      <p><%= item.name %></p>
+    </div>
+    <input type="hidden" name="listName" value=<%= listTitle // 9.1 %>>
+  </form>
+  <% }) %>
+
+  <form class="item" action="/" method="post">
+    <input
+      type="text"
+      name="newItem"
+      placeholder="New Item"
+      autocomplete="off"
+    />
+    <button type="submit" name="list" value="<%= listTitle %>">+</button>
+  </form>
+</div>
+
+<%- include("footer") -%>
